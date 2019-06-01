@@ -17,7 +17,14 @@ Ex:
 
 Run Yarn scripts
 
+//install dependencies
+
 ```
-yarn install //install dependencies
-yarn start //run server
+yarn install
+```
+
+//run server
+
+```
+yarn start
 ```
