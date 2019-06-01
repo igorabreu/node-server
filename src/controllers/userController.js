@@ -17,7 +17,6 @@ exports.index = (req, res) => {
 }
 
 exports.new = (req, res) => {
-  console.log()
   var user = new User()
   bcrypt.hash(req.body.password, 5, (err, bcryptedPassword) => {
     console.log(bcryptedPassword)
