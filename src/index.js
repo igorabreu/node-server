@@ -3,7 +3,8 @@ var bodyParser = require("body-parser")
 var mongoose = require("mongoose")
 var app = express()
 var apiRoutes = require("./routes/api-routes")
-var port = process.env.PORT || 3000
+require("dotenv").config()
+var port = process.env.PORT
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*")
@@ -21,10 +22,7 @@ app.use(
 )
 app.use(bodyParser.json())
 
-mongoose.connect(
-  "mongodb+srv://adminUser:Admin971@cluster0-mdbfm.mongodb.net/test?retryWrites=true&w=majority",
-  { useNewUrlParser: true }
-)
+mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true })
 
 mongoose.connection.on("connected", res => {
   console.log("Database is connected")
