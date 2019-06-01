@@ -19,7 +19,6 @@ exports.index = (req, res) => {
 exports.new = (req, res) => {
   var user = new User()
   bcrypt.hash(req.body.password, 5, (err, bcryptedPassword) => {
-    console.log(bcryptedPassword)
     user.name = req.body.name
     user.email = req.body.email
     user.password = bcryptedPassword
@@ -40,7 +39,6 @@ exports.view = (req, res) => {
   })
 }
 
-// Handle update contact info
 exports.update = function(req, res) {
   User.findById(req.params.user_id, function(err, user) {
     if (err) res.send(err)
@@ -50,7 +48,6 @@ exports.update = function(req, res) {
     user.email = req.body.email
     user.phone = req.body.phone
 
-    // save the contact and check for errors
     user.save(function(err) {
       if (err) res.json(err)
       res.json({
@@ -60,7 +57,6 @@ exports.update = function(req, res) {
   })
 }
 
-// Handle delete contact
 exports.delete = function(req, res) {
   User.remove(
     {
