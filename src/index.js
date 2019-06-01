@@ -1,8 +1,8 @@
-let express = require("express")
-let bodyParser = require("body-parser")
-let mongoose = require("mongoose")
-let app = express()
-let apiRoutes = require("./routes")
+var express = require("express")
+var bodyParser = require("body-parser")
+var mongoose = require("mongoose")
+var app = express()
+var apiRoutes = require("./routes/api-routes")
 var port = process.env.PORT || 3000
 
 app.use(function(req, res, next) {
@@ -31,7 +31,7 @@ mongoose.connection.on("connected", res => {
 })
 
 app.get("/", (req, res) => {
-  res.send("Hello World")
+  res.send("Working")
 })
 
 app.use("/api", apiRoutes)
