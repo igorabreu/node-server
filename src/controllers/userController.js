@@ -1,22 +1,13 @@
-const User = require("../models/userModel")
-const bcrypt = require("bcrypt")
+import bcrypt from "bcrypt"
+import User from "../models/userModel"
 
-exports.index = (req, res) => {
-  User.get((err, users) => {
-    if (err) {
-      res.json({
-        status: "error",
-        message: err
-      })
-    }
-    res.json({
-      status: "success",
-      data: users
-    })
+export const index = (req, res) => {
+  User.find({},(err, user) => {
+    res.status(200).json(user)
   })
 }
 
-exports.new = (req, res) => {
+export const newItem = (req, res) => {
   var user = new User()
   bcrypt.hash(req.body.password, 5, (err, bcryptedPassword) => {
     user.name = req.body.name
@@ -30,7 +21,7 @@ exports.new = (req, res) => {
   })
 }
 
-exports.view = (req, res) => {
+export const view = (req, res) => {
   User.findById(req.params.user_id, (err, user) => {
     if (err) res.send(err)
     res.json({
@@ -39,25 +30,23 @@ exports.view = (req, res) => {
   })
 }
 
-exports.update = function(req, res) {
+export const update = (req, res) => {
   User.findById(req.params.user_id, function(err, user) {
     if (err) res.send(err)
 
     user.name = req.body.name
-    user.gender = req.body.gender
     user.email = req.body.email
-    user.phone = req.body.phone
 
     user.save(function(err) {
       if (err) res.json(err)
       res.json({
-        data: contact
+        data: user
       })
     })
   })
 }
 
-exports.delete = function(req, res) {
+export const deleteItem = (req, res) => {
   User.remove(
     {
       _id: req.params.user_id

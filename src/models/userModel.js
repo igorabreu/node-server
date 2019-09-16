@@ -1,6 +1,6 @@
-var mongoose = require("mongoose")
+import { Schema, model } from "mongoose"
 
-var userSchema = mongoose.Schema({
+const userSchema = Schema({
   name: {
     type: String,
     required: true
@@ -19,8 +19,6 @@ var userSchema = mongoose.Schema({
   }
 })
 
-var User = (module.exports = mongoose.model("user", userSchema))
+const User = model("users", userSchema)
 
-module.exports.get = (callback, limit) => {
-  User.find(callback).limit(limit)
-}
+export default User

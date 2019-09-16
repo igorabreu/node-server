@@ -1,6 +1,6 @@
 const router = require("express").Router()
-const userController = require("../controllers/userController")
-const authenticationController = require("../controllers/authenticationController")
+import { index, newItem, view, update, deleteItem } from "../controllers/userController"
+import { auth } from "../controllers/authenticationController"
 
 //root
 router.get("/", (req, res) => {
@@ -12,17 +12,17 @@ router.get("/", (req, res) => {
 //Users
 router
   .route("/users")
-  .get(userController.index)
-  .post(userController.new)
+  .get(index)
+  .post(newItem)
 
 router
   .route("/users/:user_id")
-  .get(userController.view)
-  .patch(userController.update)
-  .put(userController.update)
-  .delete(userController.delete)
+  .get(view)
+  .patch(update)
+  .put(update)
+  .delete(deleteItem)
 
 //Authentication
-router.route("/login").post(authenticationController.auth)
+router.route("/login").post(auth)
 
-module.exports = router
+export default router

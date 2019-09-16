@@ -1,30 +1,26 @@
-var express = require("express")
-var bodyParser = require("body-parser")
-var mongoose = require("mongoose")
-var app = express()
-var apiRoutes = require("./routes/api-routes")
-require("dotenv").config()
-var port = process.env.PORT
+import express from "express"
+import cors from "cors"
+import { urlencoded, json } from "body-parser"
+import { connect, connection } from "mongoose"
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*")
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  )
-  next()
-})
+import apiRoutes from "./routes/api-routes"
+
+require("dotenv").config()
+const app = express()
+const port = process.env.PORT
+
+app.use(cors())
 
 app.use(
-  bodyParser.urlencoded({
+  urlencoded({
     extended: true
   })
 )
-app.use(bodyParser.json())
+app.use(json())
 
-mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true })
+connect(process.env.MONGO_URL, { useNewUrlParser: true })
 
-mongoose.connection.on("connected", res => {
+connection.on("connected", res => {
   console.log("Database is connected")
 })
 
